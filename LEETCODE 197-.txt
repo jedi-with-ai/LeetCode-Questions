@@ -1,0 +1,32 @@
+LEETCODE 197 
+
+SELF-JOIN Concept
+
+Only use it when:
+data is recursive
+hierarchy
+1time sequence
+comparison within table
+When one row related in some way to another row 
+w1.recordDate = w2.recordDate + 1 (w1 is today and w2 is yesterday)
+e1.manager_id = e2.employee_id (to find manager and employee like hierarchy)
+t1.order_id < t2.order_id (Sequence)
+score1.value = MAX(score2.value) (Minimum/Maximum)
+
+DATEADD(interval, amount, date_column) 1 to add , -1 to remove a day 
+
+
+/* Write your T-SQL query statement below */
+SELECT w1.id FROM Weather w1
+LEFT JOIN Weather w2 on w1.recordDate = DATEADD(day,1,w2.recordDate)
+WHERE w1.temperature > w2.temperature;
+
+w1 = records from second row that is today
+w2 - records from first row that is yesterday 
+ 
+
+SELECT w1.id
+FROM Weather w1, Weather w2
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
+
+NICE CONCEPT - DATEDIFF(w1.recordDate, w2.recordDate)

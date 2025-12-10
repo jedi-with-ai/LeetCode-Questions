@@ -1,0 +1,22 @@
+LEEDCODE 1581 
+
+Initial Thinking process I left join both Visits and Transactions table 
+And we group by Customer_id which will help us aggregate the count 
+Since we did left join the transaction_id for the visits with no match will be NULL 
+We can count these NULL values to find the time of visits where no transaction were made. 
+
+
+This feels logical, but in SQL:
+COUNT(column) ignores NULLs
+So COUNT(t.transaction_id) will always return 0 in your filtered result.
+Because when we use 
+WHERE t.transaction_id IS NULL
+
+We filtered t.transaction_id is NULL so there are only values with NULL in them and we got 0 in result. Since SQL doesn't count NULL values. 
+So it would be better to count rows or even any Non-Null column since we have already filtered NULL values and grouped by. So counting any row would be fine 
+
+/* Write your T-SQL query statement below */
+SELECT v.customer_id, COUNT(*) as count_no_trans FROM Visits v 
+LEFT JOIN Transactions T ON v.visit_id = t.visit_id
+WHERE t.transaction_id IS NULL
+GROUP BY v.customer_id;
