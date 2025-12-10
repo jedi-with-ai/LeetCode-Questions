@@ -1,0 +1,8 @@
+LEETCODE 1698 
+
+# Write your MySQL query statement below
+SELECT tweet_id FROM Tweets
+where LENGTH(content) > 15
+
+
+-- Lesson here is the use of LENGTH to find the length of the String . 

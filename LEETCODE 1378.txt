@@ -1,0 +1,24 @@
+LEETCODE 1378
+
+/* Write your T-SQL query statement below */ 
+SELECT o.unique_id, e.name FROM Employees e
+FULL OUTER JOIN EmployeeUNI o 
+ON e.id = o.id
+WHERE name IS NOT NULL;
+
+
+or 
+
+select EmployeeUNI.unique_id, Employees.name from Employees
+left join EmployeeUNI on Employees.id = EmployeeUNI.id;
+
+
+LEFT JOIN
+
+Shows all rows from the LEFT table
+Shows matching rows from the RIGHT table
+If there is no match in RIGHT, the RIGHT columns become NULL
+
+FULL OUTER JOIN
+Shows all rows from BOTH tables
+If either side has no match, that side gets NULL

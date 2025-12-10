@@ -1,0 +1,39 @@
+LEETCODE 1661
+
+AGGREGATION / GROUPING 
+
+Mental Tip You Should Use
+
+Before writing SQL, ask this question:
+“Does the information I need live across two rows that belong to the same group?”
+If yes → group + aggregate.
+
+Example:
+start/end
+min/max
+earliest/latest order
+total time spent
+time difference in a workflow
+This is a pattern.
+
+aggregation collapses two / many  rows into one. 
+
+
+GROUP BY TWO COLUMNS 
+- GROUP BY the columns that uniquely describe one record you want.
+- SQL looks at both columns together and says: “All rows that have the same (machine_id + process_id) belong to one group.”
+- You group by the columns that define one complete unit of work.
+- GROUP BY multiple columns = create unique groups based on the combination of values.
+- Rows with the same pair of values are merged into one group.
+
+
+SELECT
+    machine_id, ROUND(AVG(end_time - start_time), 3) AS processing_time
+FROM (
+    SELECT machine_id, process_id, MAX(timestamp) AS end_time, MIN(timestamp) AS start_time FROM Activity
+    GROUP BY machine_id, process_id
+) AS process_times
+GROUP BY machine_id;
+
+
+- First write the subquery and them run it you see a table then you can calculate outer select. 
