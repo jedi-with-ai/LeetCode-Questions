@@ -1,0 +1,15 @@
+LEETCODE 1251
+
+/* Write your T-SQL query statement below */
+SELECT p.product_id, IFNULL(ROUND(SUM(p.price*u.units)/SUM(u.units), 2),0) as average_price 
+FROM Prices p 
+LEFT JOIN UnitsSold u 
+ON p.product_id = u.product_id
+AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY p.product_id;
+
+
+-- Key Lessons 
+IFNULL(value, 0) --> IF no NULL leave the actual value if we got NULL relace it with ZERO 
+ROUND() is different in MYSQL and MYSQL Server. CEILING() in some SQL services. 
+BETWEEN start_date and end_date 
