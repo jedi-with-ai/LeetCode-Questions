@@ -1,0 +1,12 @@
+LEETCODE 1789 
+
+# Write your MySQL query statement below
+SELECT employee_id, department_id FROM Employee
+WHERE primary_flag = 'Y' or 
+    employee_id in (SELECT employee_id FROM Employee
+                    GROUP BY employee_id
+                    HAVING count(employee_id) = 1);
+
+
+-- employee_id in (SELECT employee_id FROM Employee) 
+	Selecting employee_id where count of rows is 1 when we group by employee_id
